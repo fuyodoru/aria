@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boarding Pass — Birthday Invitation</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy:#0A1422;
+    --navy-deep:#050910;
+    --navy-soft:#13243B;
+    --cloud:#EAF3FB;
+    --steel:#7C8CA3;
+    --steel-line:rgba(124,140,163,0.25);
+    --accent:#49C6E5;
+    --accent-dim:#2E93AC;
+    --accent-soft:rgba(73,198,229,0.12);
+    --indigo:#6C8CFF;
+    --teal:#2BB3A3;
+    --decline:#C9555B;
+    --space-1:4px; --space-2:8px; --space-3:16px; --space-4:24px;
+    --space-5:40px; --space-6:64px; --space-7:96px;
+    --fs-xl:clamp(2.4rem,6vw,4.6rem);
+    --fs-lg:clamp(1.6rem,3.6vw,2.6rem);
+    --fs-md:clamp(1.2rem,2.2vw,1.5rem);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink-navy);
+    color:var(--cloud);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    opacity:0.05;
+    z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  section{position:relative; z-index:2; padding:var(--space-7) var(--space-4);}
+  .wrap{max-width:920px; margin:0 auto;}
+
+  /* ---------- divider with flying plane ---------- */
+  .route-divider{
+    position:relative;
+    height:40px;
+    max-width:920px;
+    margin:0 auto;
+    border-top:1px dashed var(--steel-line);
+  }
+  .route-divider svg{
+    position:absolute; top:-11px; left:0;
+    animation:fly 9s linear infinite;
+  }
+  @keyframes fly{
+    0%{left:-5%; opacity:0;}
+    8%{opacity:1;}
+    92%{opacity:1;}
+    100%{left:103%; opacity:0;}
+  }
+
+  /* ================= HERO / TICKET ================= */
+  .hero{
+    padding-top:var(--space-6);
+    display:flex; flex-direction:column; align-items:center; gap:var(--space-5);
+    text-align:center;
+  }
+  .carrier{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.04em;
+  }
+  .carrier .dot{width:8px;height:8px;border-radius:50%;background:var(--accent); box-shadow:0 0 8px var(--accent);}
+
+  .ticket{
+    width:100%;
+    max-width:680px;
+    background:var(--cloud);
+    color:var(--ink-navy);
+    border-radius:18px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+    overflow:hidden;
+    text-align:left;
+  }
+  .ticket-main{
+    padding:var(--space-5) var(--space-5) var(--space-4);
+    display:grid;
+    gap:var(--space-4);
+  }
+  .ticket-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:var(--space-3);
+    flex-wrap:wrap;
+  }
+  .ticket-top .eyebrow{color:var(--accent-dim);}
+  .passenger-name{
+    font-size:var(--fs-lg);
+    font-weight:700;
+    line-height:1.05;
+  }
+  .ticket-codes{
+    display:flex; align-items:center; gap:var(--space-3);
+    font-size:var(--fs-xl);
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .ticket-codes .arrow{color:var(--accent-dim); font-size:0.5em;}
+  .ticket-codes small{
+    display:block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    font-weight:400;
+    letter-spacing:0.08em;
+    color:var(--steel);
+    margin-top:4px;
+  }
+  .ticket-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:var(--space-3);
+    border-top:1px solid var(--steel-line);
+    padding-top:var(--space-3);
+  }
+  .ticket-field .eyebrow{color:var(--steel); font-size:0.62rem;}
+  .ticket-field .val{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;
+    font-size:0.95rem;
+    margin-top:4px;
+  }
+  .perforation{
+    position:relative;
+    height:0;
+    border-top:2px dashed #c7cdd8;
+    margin:0 var(--space-5);
+  }
+  .perforation::before,.perforation::after{
+    content:"";
+    position:absolute; top:-12px;
+    width:24px; height:24px; border-radius:50%;
+    background:var(--ink-navy);
+  }
+  .perforation::before{left:-36px;}
+  .perforation::after{right:-36px;}
+  .ticket-stub{
+    padding:var(--space-4) var(--space-5) var(--space-5);
+    display:flex; justify-content:space-between; align-items:center; gap:var(--space-3);
+    flex-wrap:wrap;
+  }
+  .barcode{
+    height:36px; flex:1; min-width:140px;
+    background:repeating-linear-gradient(90deg,var(--ink-navy) 0 2px,transparent 2px 5px, var(--ink-navy) 5px 6px, transparent 6px 9px, var(--ink-navy) 9px 12px, transparent 12px 14px);
+  }
+  .ticket-stub .ref{font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:var(--steel);}
+
+  .hero-sub{max-width:480px; color:var(--steel); font-size:1rem; line-height:1.6;}
+  .scroll-cue{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    color:var(--steel);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+
+  /* ================= BLACK BOX / MEMORIES ================= */
+  .blackbox-section{background:var(--navy-deep);}
+  .section-head h2{font-size:var(--fs-lg); color:var(--cloud);}
+  .section-head p{color:var(--steel); max-width:520px; margin-top:var(--space-2);}
+
+  .blackbox{
+    max-width:520px;
+    margin:var(--space-6) auto 0;
+    position:relative;
+    background:linear-gradient(165deg, #12181f, #06080b);
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,0.07);
+    box-shadow:0 35px 70px -25px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05);
+    padding:var(--space-5);
+  }
+  .bb-handle{
+    position:absolute; top:-16px; left:50%; transform:translateX(-50%);
+    width:64px; height:22px;
+    border:5px solid #1a2129;
+    border-bottom:none;
+    border-radius:14px 14px 0 0;
+    background:var(--navy-deep);
+  }
+  .bb-plate{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.58rem;
+    letter-spacing:0.12em;
+    color:var(--steel);
+    text-transform:uppercase;
+    text-align:center;
+    margin-bottom:var(--space-3);
+  }
+  .rivet{
+    position:absolute; width:7px; height:7px; border-radius:50%;
+    background:#1a2129;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .rivet.tl{top:14px; left:14px;}
+  .rivet.tr{top:14px; right:14px;}
+  .rivet.bl{bottom:14px; left:14px;}
+  .rivet.br{bottom:14px; right:14px;}
+
+  .bb-status{
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:var(--space-3);
+  }
+  .bb-led{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--steel);
+  }
+  .bb-led.active{
+    background:var(--accent);
+    box-shadow:0 0 10px var(--accent);
+    animation:pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  .bb-status span:last-child{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em;
+    color:var(--steel); text-transform:uppercase;
+  }
+
+  .bb-screen{
+    background:#000;
+    border-radius:12px;
+    border:1px solid rgba(73,198,229,0.22);
+    padding:var(--space-4);
+    min-height:180px;
+    display:flex; flex-direction:column; justify-content:center; gap:10px;
+    position:relative;
+    overflow:hidden;
+  }
+  .bb-screen::after{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(180deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 4px);
+    pointer-events:none;
+  }
+  .bb-counter{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.12em;
+    color:var(--accent); text-transform:uppercase;
+  }
+  .bb-year{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.6rem; color:var(--cloud);
+  }
+  .bb-text{
+    font-size:0.92rem; color:#C7D3E0; line-height:1.55;
+  }
+  .bb-placeholder{
+    font-family:'IBM Plex Mono',monospace; font-size:0.82rem; color:var(--steel);
+    line-height:1.6; text-align:center;
+  }
+  .bb-media{
+    margin-top:6px; border-radius:8px; overflow:hidden;
+    border:1px dashed rgba(73,198,229,0.3);
+  }
+  .bb-media video{width:100%; display:block; max-height:220px; background:#000;}
+  .bb-media-empty{
+    padding:14px; text-align:center; font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem; color:var(--steel);
+  }
+  .bb-screen.fade-out .bb-fade{opacity:0; transform:translateY(4px);}
+  .bb-fade{transition:opacity .18s ease, transform .18s ease; opacity:1; transform:translateY(0);}
+
+  .access-btn{
+    margin-top:var(--space-4); width:100%;
+    background:transparent; border:1.5px solid var(--accent);
+    color:var(--accent);
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.92rem; letter-spacing:0.04em;
+    padding:14px; border-radius:10px; cursor:pointer;
+    transition:all .15s ease;
+  }
+  .access-btn:hover{background:var(--accent-soft);}
+  .access-btn:active{transform:scale(0.98);}
+
+  /* ================= FRIENDS VIDEO WISHES ================= */
+  .wishes-head h2{font-size:var(--fs-lg);}
+  .wishes-head p{color:var(--steel); max-width:520px; margin-top:var(--space-2);}
+  .transmission{
+    max-width:720px; margin:var(--space-6) auto 0;
+    background:var(--navy-soft);
+    border:1px solid var(--steel-line);
+    border-radius:16px;
+    padding:var(--space-3);
+  }
+  .transmission-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:0 var(--space-2) var(--space-3);
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em;
+    color:var(--steel); text-transform:uppercase;
+  }
+  .transmission-bar .bb-led{margin-right:2px;}
+  .transmission-screen{
+    background:#000; border-radius:10px; overflow:hidden;
+    aspect-ratio:16/9;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .transmission-screen video, .transmission-screen iframe{
+    width:100%; height:100%; border:none; display:block;
+  }
+  .transmission-empty{
+    text-align:center; color:var(--steel);
+    font-family:'IBM Plex Mono',monospace; font-size:0.8rem;
+    padding:var(--space-4); line-height:1.7;
+  }
+  .transmission-empty .play{
+    width:54px; height:54px; border-radius:50%;
+    border:1.5px solid var(--accent); color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto var(--space-3);
+    font-size:1.1rem;
+  }
+
+  /* ================= FOOTER ================= */
+  footer{
+    padding:var(--space-6) var(--space-4) var(--space-5);
+    text-align:center;
+  }
+  footer .plane{font-size:1.4rem; margin-bottom:var(--space-2); color:var(--accent);}
+  footer p{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--steel); letter-spacing:0.04em;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="carrier"><span class="dot"></span><span id="carrierName">BIRTHDAY AIRWAYS</span></div>
+
+  <div class="ticket">
+    <div class="ticket-main">
+      <div class="ticket-top">
+        <div>
+          <div class="eyebrow">Boarding Pass · Passenger</div>
+          <div class="passenger-name" id="passengerName">JORDAN RIVERA</div>
+        </div>
+        <div style="text-align:right">
+          <div class="eyebrow">Class</div>
+          <div class="val mono" style="font-weight:600">VIP CLASS</div>
+        </div>
+      </div>
+
+      <div class="ticket-codes">
+        <div>
+          <span id="fromYear">1996</span>
+          <small>ORIGIN</small>
+        </div>
+        <span class="arrow">✈ &nbsp;&#10230;&nbsp;</span>
+        <div>
+          <span id="toYear">2026</span>
+          <small>DESTINATION</small>
+        </div>
+      </div>
+
+      <div class="ticket-grid">
+        <div class="ticket-field">
+          <div class="eyebrow">Flight</div>
+          <div class="val" id="flightNo">BD-030</div>
+        </div>
+        <div class="ticket-field">
+          <div class="eyebrow">Gate</div>
+          <div class="val" id="gateVal">07</div>
+        </div>
+        <div class="ticket-field">
+          <div class="eyebrow">Seat</div>
+          <div class="val" id="seatVal">1A</div>
+        </div>
+        <div class="ticket-field">
+          <div class="eyebrow">Boarding</div>
+          <div class="val" id="boardVal">7:00 PM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="perforation"></div>
+
+    <div class="ticket-stub">
+      <div>
+        <div class="ref">RES. CODE <span id="resCode">XJ7K9P</span></div>
+        <div class="ref" id="stubDate">SAT, AUG 15 2026</div>
+      </div>
+      <div class="barcode" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <p class="hero-sub">You're cleared for takeoff. Scroll down to access the flight recorder, a few snapshots from the window seat, and a check-in counter to confirm your seat.</p>
+
+  <div class="scroll-cue">
+    <span>Itinerary below</span>
+    <span>↓</span>
+  </div>
+</section>
+
+<div class="route-divider">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M21 12l-7-7v4.5L4 12l10 2.5V19l7-7z" fill="#49C6E5"/>
+  </svg>
+</div>
+
+<!-- ================= BLACK BOX / MEMORIES ================= -->
+<section class="blackbox-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Flight Recorder</div>
+      <h2>Black Box: Memories On File</h2>
+      <p>Every flight keeps a recorder. Press ACCESS RECORDS to pull a memory from this one — one at a time.</p>
+    </div>
+
+    <div class="blackbox">
+      <div class="bb-handle"></div>
+      <span class="rivet tl"></span><span class="rivet tr"></span>
+      <span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="bb-plate">FLIGHT RECORDER · UNIT 04 · HANDLE WITH CARE</div>
+
+      <div class="bb-status">
+        <span class="bb-led" id="bbLed"></span>
+        <span id="bbStatusText">STANDBY</span>
+      </div>
+
+      <div class="bb-screen" id="bbScreen">
+        <div class="bb-fade" id="bbContent">
+          <div class="bb-placeholder">🔒 RECORDS SEALED<br>Press ACCESS RECORDS to begin retrieval.</div>
+        </div>
+      </div>
+
+      <button class="access-btn" id="accessBtn">▶ ACCESS RECORDS</button>
+    </div>
+  </div>
+</section>
+
+<div class="route-divider">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M21 12l-7-7v4.5L4 12l10 2.5V19l7-7z" fill="#49C6E5"/>
+  </svg>
+</div>
+
+<!-- ================= FRIENDS VIDEO WISHES ================= -->
+<section>
+  <div class="wrap">
+    <div class="wishes-head">
+      <div class="eyebrow">Incoming Transmission</div>
+      <h2>Wishes From The Crew</h2>
+      <p>A few words from the people flying alongside you this year.</p>
+    </div>
+
+    <div class="transmission">
+      <div class="transmission-bar">
+        <span class="bb-led active"></span>
+        <span>RECEIVING</span>
+      </div>
+      <div class="transmission-screen" id="wishesScreen"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="plane">✈</div>
+  <p>Thanks for flying with us this year. See you at 30,000 feet.</p>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG — edit everything in here to personalize the page.
+   Lines marked EDIT are the ones you'll most likely want to change.
+   ============================================================ */
+const CONFIG = {
+  carrierName: "BIRTHDAY AIRWAYS", // EDIT: your made-up "airline" name
+
+  passenger: {
+    name: "JORDAN RIVERA",   // EDIT: birthday person's name
+    flightAge: 30,            // EDIT: the age they're turning
+    fromYear: 1996,           // EDIT: birth year
+    toYear: 2026,             // EDIT: this year
+    gate: "07",
+    seat: "1A",
+    resCode: "XJ7K9P"
+  },
+
+  party: {
+    date: "SAT, AUG 15 2026",   // EDIT: party date, shown on the ticket stub
+    boardingTime: "7:00 PM"     // EDIT: arrival/start time, shown on the ticket
+  },
+
+  // EDIT: black box memories — revealed one at a time on ACCESS RECORDS.
+  // Set media.type to "video" and give it a src to show a clip, or leave
+  // media.type as "none" for a text-only memory.
+  memories: [
+    { year: "2014", text: "The trip where you got hilariously lost looking for the trailhead. EDIT this memory.", media: { type: "none" } },
+    { year: "2017", text: "That ridiculous group costume nobody else understood. EDIT this memory.", media: { type: "video", src: "" } },
+    { year: "2019", text: "The 2am diner run that turned into a four hour conversation. EDIT this memory.", media: { type: "none" } },
+    { year: "2021", text: "The move that everyone said was a bad idea, and wasn't. EDIT this memory.", media: { type: "video", src: "" } },
+    { year: "2023", text: "The road trip playlist that's still in rotation. EDIT this memory.", media: { type: "none" } },
+    { year: "2026", text: "And now: another year on file. EDIT this memory.", media: { type: "none" } }
+  ],
+
+  // EDIT: the birthday wishes video from friends. Use ONE of:
+  //  - embedUrl: a YouTube/Vimeo embed link, e.g. "https://www.youtube.com/embed/VIDEO_ID"
+  //  - src: a direct video file URL (mp4, etc.)
+  // Leave both empty to show a placeholder.
+  wishesVideo: {
+    embedUrl: "",
+    src: "",
+    poster: ""
+  }
+};
+
+/* ============================================================
+   RENDER — HERO
+   ============================================================ */
+document.title = `Boarding Pass — ${CONFIG.passenger.name}'s Birthday`;
+document.getElementById('carrierName').textContent = CONFIG.carrierName;
+document.getElementById('passengerName').textContent = CONFIG.passenger.name;
+document.getElementById('fromYear').textContent = CONFIG.passenger.fromYear;
+document.getElementById('toYear').textContent = CONFIG.passenger.toYear;
+document.getElementById('flightNo').textContent = `BD-${String(CONFIG.passenger.flightAge).padStart(3,'0')}`;
+document.getElementById('gateVal').textContent = CONFIG.passenger.gate;
+document.getElementById('seatVal').textContent = CONFIG.passenger.seat;
+document.getElementById('boardVal').textContent = CONFIG.party.boardingTime;
+document.getElementById('resCode').textContent = CONFIG.passenger.resCode;
+document.getElementById('stubDate').textContent = CONFIG.party.date;
+
+/* ============================================================
+   BLACK BOX — reveal memories one at a time
+   ============================================================ */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let bbIndex = -1;
+const bbScreen = document.getElementById('bbScreen');
+const bbContent = document.getElementById('bbContent');
+const bbLed = document.getElementById('bbLed');
+const bbStatusText = document.getElementById('bbStatusText');
+const accessBtn = document.getElementById('accessBtn');
+
+function renderMemory(mem, index, total){
+  let mediaHtml = '';
+  if (mem.media && mem.media.type === 'video') {
+    if (mem.media.src) {
+      mediaHtml = `<div class="bb-media"><video controls src="${mem.media.src}"></video></div>`;
+    } else {
+      mediaHtml = `<div class="bb-media"><div class="bb-media-empty">▶ FOOTAGE NOT YET LOADED</div></div>`;
+    }
+  }
+  bbContent.innerHTML = `
+    <div class="bb-counter">RECORD ${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</div>
+    <div class="bb-year">${mem.year}</div>
+    <div class="bb-text">${mem.text}</div>
+    ${mediaHtml}
+  `;
+}
+
+function showNextMemory(){
+  const total = CONFIG.memories.length;
+  bbIndex = (bbIndex + 1) % total;
+
+  bbLed.classList.add('active');
+  bbStatusText.textContent = 'PLAYING';
+  accessBtn.textContent = bbIndex === total - 1 ? '↻ RESTART LOG' : '▶ NEXT RECORD';
+
+  const reveal = () => renderMemory(CONFIG.memories[bbIndex], bbIndex, total);
+
+  if (reduceMotion) {
+    reveal();
+    return;
+  }
+  bbScreen.classList.add('fade-out');
+  setTimeout(() => {
+    reveal();
+    bbScreen.classList.remove('fade-out');
+  }, 180);
+}
+
+accessBtn.addEventListener('click', showNextMemory);
+
+/* ============================================================
+   FRIENDS VIDEO WISHES
+   ============================================================ */
+const wishesScreen = document.getElementById('wishesScreen');
+const wv = CONFIG.wishesVideo;
+if (wv.embedUrl) {
+  wishesScreen.innerHTML = `<iframe src="${wv.embedUrl}" title="Birthday wishes from friends" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+} else if (wv.src) {
+  wishesScreen.innerHTML = `<video controls ${wv.poster ? `poster="${wv.poster}"` : ''}><source src="${wv.src}"></video>`;
+} else {
+  wishesScreen.innerHTML = `
+    <div class="transmission-empty">
+      <div class="play">▶</div>
+      TRANSMISSION INCOMING<br>
+      Add a video link in CONFIG.wishesVideo
+    </div>`;
+}
+</script>
+</body>
+</html>
