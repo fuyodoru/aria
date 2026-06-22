@@ -115,7 +115,15 @@ z-index:20;
 
 
 }
-
+.terminal-button{
+    margin-top:20px;
+    background:none;
+    border:1px solid white;
+    color:white;
+    padding:10px 20px;
+    font-family:inherit;
+    cursor:pointer;
+}
 #terminal-container{
 position:relative;
 z-index:10;
