@@ -314,7 +314,7 @@ document.body.style.opacity = "0";
 await sleep(2000);
 
 window.location.href =
-"http://archive.icodeflow.com/public_record.php";
+"http://archive.icodeflow.com/public_record.html";
 
 
 }
