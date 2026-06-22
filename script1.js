@@ -201,39 +201,50 @@ waitForY();
 
 }
 
-function waitForY(){
+function waitForY() {
 
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    cursor.textContent = "█";
+    terminal.appendChild(cursor);
 
-const cursor =
-document.createElement("span");
+    const button = document.createElement("button");
+    button.textContent = "[ Y ]";
+    button.className = "terminal-button";
 
-cursor.className = "cursor";
-cursor.textContent = "█";
+    terminal.appendChild(document.createElement("br"));
+    terminal.appendChild(button);
 
-terminal.appendChild(cursor);
+    function proceed() {
 
-function listener(e){
+        cursor.remove();
+        button.remove();
 
-    if(
-        e.key.toLowerCase()
-        !== "y"
-    ) return;
+        document.removeEventListener(
+            "keydown",
+            keyboardListener
+        );
 
-    cursor.remove();
+        continueBoot();
+    }
 
-    document.removeEventListener(
+    function keyboardListener(e) {
+
+        if (e.key.toLowerCase() === "y") {
+            proceed();
+        }
+
+    }
+
+    document.addEventListener(
         "keydown",
-        listener
+        keyboardListener
     );
 
-    continueBoot();
-}
-
-document.addEventListener(
-    "keydown",
-    listener
-);
-
+    button.addEventListener(
+        "click",
+        proceed
+    );
 
 }
 
