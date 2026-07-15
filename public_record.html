@@ -574,7 +574,7 @@ function renderMemory(mem, index, total){
   }
   bbContent.innerHTML = `
     <div class="bb-counter">RECORD ${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</div>
-    <div class="bb-year">${mem.year}</div>
+    <div class="bb-year">${mem.label}</div>
     <div class="bb-text">${mem.text}</div>
     ${mediaHtml}
   `;
