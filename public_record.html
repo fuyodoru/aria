@@ -564,22 +564,34 @@ const bbStatusText = document.getElementById('bbStatusText');
 const accessBtn = document.getElementById('accessBtn');
 
 function renderMemory(mem, index, total){
-  let mediaHtml = '';
-  if (mem.media && mem.media.type === 'video') {
-    if (mem.media.src) {
-      mediaHtml = `<div class="bb-media"><video controls src="${mem.media.src}"></video></div>`;
-    } else {
-      mediaHtml = `<div class="bb-media"><div class="bb-media-empty">▶ FOOTAGE NOT YET LOADED</div></div>`;
-    }
+  let mediaHtml = "";
+
+  if (mem.type === "embed") {
+    mediaHtml = `
+      <div class="bb-media">
+        <iframe
+          src="${mem.src}"
+          width="100%"
+          height="220"
+          frameborder="0"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+    `;
   }
+
   bbContent.innerHTML = `
-    <div class="bb-counter">RECORD ${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</div>
+    <div class="bb-counter">
+      RECORD ${String(index+1).padStart(2,'0')} /
+      ${String(total).padStart(2,'0')}
+    </div>
+
     <div class="bb-year">${mem.label}</div>
-    <div class="bb-text">${mem.text}</div>
+
     ${mediaHtml}
   `;
 }
-
 function showNextMemory(){
   const total = CONFIG.memories.length;
   bbIndex = (bbIndex + 1) % total;
