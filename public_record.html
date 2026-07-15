@@ -518,13 +518,14 @@ const CONFIG = {
   // Set media.type to "video" and give it a src to show a clip, or leave
   // media.type as "none" for a text-only memory.
   memories: [
-    { year: "2014", text: "The trip where you got hilariously lost looking for the trailhead. EDIT this memory.", media: { type: "none" } },
-    { year: "2017", text: "That ridiculous group costume nobody else understood. EDIT this memory.", media: { type: "video", src: "" } },
-    { year: "2019", text: "The 2am diner run that turned into a four hour conversation. EDIT this memory.", media: { type: "none" } },
-    { year: "2021", text: "The move that everyone said was a bad idea, and wasn't. EDIT this memory.", media: { type: "video", src: "" } },
-    { year: "2023", text: "The road trip playlist that's still in rotation. EDIT this memory.", media: { type: "none" } },
-    { year: "2026", text: "And now: another year on file. EDIT this memory.", media: { type: "none" } }
+    { label: "Memory 01", type: "file",  src: "bday1.mp4" },
+    { label: "Memory 02", type: "file",  src: "" },
+    { label: "Memory 03", type: "embed", src: "" },
+    { label: "Memory 04", type: "file",  src: "" },
+    { label: "Memory 05", type: "embed", src: "" },
+    { label: "Memory 06", type: "file",  src: "" }
   ],
+ 
 
   // EDIT: the birthday wishes video from friends. Use ONE of:
   //  - embedUrl: a YouTube/Vimeo embed link, e.g. "https://www.youtube.com/embed/VIDEO_ID"
